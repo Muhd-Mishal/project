@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container py-4">
+  <h2 class="mb-4">📦 All Customer Orders</h2>
+
+  {% if orders %}
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+          <tr>
+            <th>#</th>
+            <th>Customer</th>
+            <th>Total (₹)</th>
+            <th>Payment Token</th>
+            <th>Items</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for order in orders %}
+            <tr>
+              <td>{{ order.id }}</td>
+              <td>{{ order.user.username }}</td>
+              <td>₹{{ '%.2f' % order.total }}</td>
+              <td>{{ order.payment_token }}</td>
+              <td>
+                <ul class="mb-0">
+                  {% for item in order.items %}
+                    <li>{{ item.item.name }} x {{ item.quantity }} = ₹{{ '%.2f' % item.price }}</li>
+                  {% endfor %}
+                </ul>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p>No orders yet.</p>
+  {% endif %}
+</div>
+{% endblock %}

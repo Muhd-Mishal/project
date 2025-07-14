@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+  <h2>Your Cart</h2>
+
+  {% if items %}
+    <table class="table table-hover align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>Item</th>
+          <th style="width: 150px;">Quantity</th>
+          <th>Subtotal</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in items %}
+        <tr>
+          <td>{{ row.item.name }}</td>
+          <td>{{ row.quantity }}</td>
+          <td>₹{{ row.subtotal }}</td>
+          <td>
+            <div class="btn-group btn-group-sm" role="group">
+              <form action="{{ url_for('main.update_cart', item_id=row.item.id) }}" method="post" style="display:inline;">
+                <input type="hidden" name="action" value="increment">
+                <button type="submit" class="btn btn-outline-success" title="Add">+</button>
+              </form>
+              <form action="{{ url_for('main.update_cart', item_id=row.item.id) }}" method="post" style="display:inline;">
+                <input type="hidden" name="action" value="decrement">
+                <button type="submit" class="btn btn-outline-warning" title="Decrease">−</button>
+              </form>
+              <form action="{{ url_for('main.update_cart', item_id=row.item.id) }}" method="post" style="display:inline;">
+                <input type="hidden" name="action" value="remove">
+                <button type="submit" class="btn btn-outline-danger" title="Remove">×</button>
+              </form>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <div class="d-flex justify-content-between align-items-center">
+      <h4>Total: ₹{{ total }}</h4>
+      <a href="{{ url_for('main.place_order') }}" class="btn btn-success btn-lg">💳 Place Order</a>
+    </div>
+  {% else %}
+    <div class="alert alert-info">
+      Your cart is empty. <a href="{{ url_for('main.menu') }}">Browse menu</a>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,62 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #fff;
+}
+
+.card {
+    border: none;
+    border-radius: 10px;
+    transition: transform 0.2s ease-in-out;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.card:hover {
+    transform: scale(1.02);
+}
+
+.card-img-top {
+    height: 180px;
+    object-fit: cover;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.btn-add {
+    background-color: #60b246;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    transition: 0.3s;
+}
+
+.btn-add:hover {
+    background-color: #4aa144;
+}
+
+.modern-cart-bar {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  background: rgba(33, 37, 41, 0.9); /* Bootstrap dark with transparency */
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  color: white;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  z-index: 1050;
+}
+
+.modern-cart-bar .btn {
+  transition: all 0.2s ease-in-out;
+}
+
+.modern-cart-bar .btn:hover {
+  transform: scale(1.05);
+}
+

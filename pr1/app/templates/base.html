@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Canteen</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #fc8019;">
+    <div class="container-fluid px-4">
+      <a class="navbar-brand fw-bold fs-4" href="{{ url_for('main.home') }}">🍽️ Canteen</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('main.menu') }}">Menu</a>
+          </li>
+          {% if current_user.is_authenticated %}
+            {% if current_user.role == 'customer' %}
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('main.cart') }}">Cart</a>
+              </li>
+            {% endif %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('main.logout') }}">Logout</a>
+            </li>
+            {% if current_user.role == 'admin' %}
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('main.dashboard') }}">Add Item</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('main.view_orders') }}">Orders</a>
+              </li>
+            {% endif %}
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('main.login') }}">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('main.register') }}">Register</a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  {% block content %}{% endblock %}
+
+  <!-- Cart Bar for Customers -->
+  {#
+  {% if current_user.is_authenticated and current_user.role != 'admin' and session.get('cart') %}
+    {% set total = 0 %}
+    {% set item_count = 0 %}
+    {% for item_id, qty in session.cart.items() %}
+      {% set item = MenuItem.query.get(item_id | int) %}
+      {% if item %}
+        {% set total = total + (item.price * qty) %}
+        {% set item_count = item_count + qty %}
+      {% endif %}
+    {% endfor %}
+
+    <div class="modern-cart-bar d-flex justify-content-between align-items-center px-4 py-2"
+         style="position: fixed; bottom: 0; left: 0; right: 0; background: #343a40; color: white; z-index: 1050;">
+      <div class="text-white d-flex align-items-center gap-3">
+        <span class="fs-5">🛒</span>
+        <span class="fw-semibold">{{ item_count }} item(s) | ₹{{ '%.2f' % total }}</span>
+      </div>
+      <div>
+        <a href="{{ url_for('main.cart') }}" class="btn btn-warning btn-sm me-2 rounded-pill px-4 fw-semibold">
+          🧺 View Cart
+        </a>
+        <a href="{{ url_for('main.place_order') }}" class="btn btn-success btn-sm rounded-pill px-4 fw-semibold">
+          💳 Pay Now
+        </a>
+      </div>
+    </div>
+  {% endif %}
+  #}
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

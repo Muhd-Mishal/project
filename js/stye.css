@@ -1,0 +1,40 @@
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+.menu-item:hover .add-to-cart {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.add-to-cart {
+    transform: translateY(100%);
+    opacity: 0;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+.cart-item-enter {
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all 0.5s ease;
+}
+
+.cart-item-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Modal styles */
+.modal {
+    transition: opacity 0.25s ease;
+}
+
+.modal-content {
+    transition: transform 0.25s ease;
+}
+
+/* Hide scrollbar for main body when modal is open */
+body.modal-active {
+    overflow-x: hidden;
+    overflow-y: hidden;
+}

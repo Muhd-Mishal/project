@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Canteen Booking System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- App Container -->
+    <div id="app-container">
+
+        <!-- Login Page -->
+        <div id="login-page" class="min-h-screen grid place-items-center bg-gray-100">
+            <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+                <h2 class="text-3xl font-bold text-center text-orange-500 mb-6">CanteenHub Login</h2>
+                <form id="login-form">
+                    <div class="mb-4">
+                        <label for="login-username" class="block text-gray-700 mb-2">Username</label>
+                        <input type="text" id="login-username" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500" required>
+                    </div>
+                    <div class="mb-6">
+                        <label for="login-password" class="block text-gray-700 mb-2">Password</label>
+                        <input type="password" id="login-password" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500" required>
+                    </div>
+                    <button type="submit" class="w-full bg-orange-500 text-white font-semibold py-2 rounded-lg hover:bg-orange-600 transition duration-300">Login</button>
+                    <p id="login-error" class="text-red-500 text-center mt-4"></p>
+                </form>
+                <p class="text-center mt-4">
+                    Don't have an account? <a href="#" id="show-register" class="text-orange-500 hover:underline">Register here</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- Register Page -->
+        <div id="register-page" class="min-h-screen grid place-items-center bg-gray-100" style="display: none;">
+            <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+                <h2 class="text-3xl font-bold text-center text-orange-500 mb-6">Create Account</h2>
+                <form id="register-form">
+                    <div class="mb-4">
+                        <label for="register-username" class="block text-gray-700 mb-2">Username</label>
+                        <input type="text" id="register-username" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500" required>
+                    </div>
+                    <div class="mb-6">
+                        <label for="register-password" class="block text-gray-700 mb-2">Password</label>
+                        <input type="password" id="register-password" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500" required>
+                    </div>
+                    <button type="submit" class="w-full bg-orange-500 text-white font-semibold py-2 rounded-lg hover:bg-orange-600 transition duration-300">Register</button>
+                    <p id="register-error" class="text-red-500 text-center mt-4"></p>
+                </form>
+                <p class="text-center mt-4">
+                    Already have an account? <a href="#" id="show-login" class="text-orange-500 hover:underline">Login here</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- Main App (User View) -->
+        <div id="main-app" style="display: none;">
+            <!-- Header -->
+            <header class="bg-white shadow-md sticky top-0 z-30">
+                <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+                    <a href="#" class="text-2xl font-bold text-orange-500">CanteenHub</a>
+                    <div>
+                        <span class="text-gray-700 mr-4">Welcome, <span id="current-user-name" class="font-semibold">User</span>!</span>
+                        <button id="logout-button" class="text-gray-600 hover:text-orange-500 transition duration-300 mr-4">Logout</button>
+                        <button id="cart-button" class="relative text-gray-600 hover:text-orange-500 transition duration-300">
+                            <i class="fas fa-shopping-cart text-xl"></i>
+                            <span id="cart-count" class="absolute -top-2 -right-3 bg-orange-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                        </button>
+                    </div>
+                </nav>
+            </header>
+
+            <!-- Hero Section -->
+            <section id="home" class="bg-white">
+                <div class="container mx-auto px-6 py-20 md:py-32 text-center">
+                    <h1 class="text-4xl md:text-6xl font-bold text-gray-800 leading-tight">Quick Bites, Zero Waits.</h1>
+                    <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">Your favorite campus canteen, now online. Order ahead and skip the queue!</p>
+                    <a href="#menu" class="mt-8 inline-block bg-orange-500 text-white font-semibold px-8 py-3 rounded-lg shadow-lg hover:bg-orange-600 transition duration-300 transform hover:scale-105">Order Now</a>
+                </div>
+            </section>
+
+            <!-- Menu Section -->
+            <section id="menu" class="py-20">
+                <div class="container mx-auto px-6">
+                    <h2 class="text-3xl font-bold text-center mb-12">Today's Menu</h2>
+                    <div id="menu-items" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                        <!-- Menu items will be injected by JavaScript -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer id="contact" class="bg-gray-800 text-white pt-16 pb-8">
+                <div class="container mx-auto px-6 text-center">
+                    <p class="text-gray-500">&copy; 2024 CanteenHub. All Rights Reserved.</p>
+                </div>
+            </footer>
+
+            <!-- Cart Sidebar -->
+            <div id="cart-sidebar" class="fixed top-0 right-0 h-full w-full md:w-96 bg-white shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out z-50 flex flex-col">
+                <div class="flex justify-between items-center p-4 border-b">
+                    <h3 class="text-xl font-bold">Your Order</h3>
+                    <button id="close-cart" class="text-gray-600 hover:text-gray-900"><i class="fas fa-times text-2xl"></i></button>
+                </div>
+                <div id="cart-items" class="flex-grow p-4 overflow-y-auto">
+                    <p id="empty-cart-message" class="text-gray-500">Your cart is empty.</p>
+                </div>
+                <div class="p-4 border-t">
+                    <div class="flex justify-between items-center font-bold text-lg">
+                        <span>Total:</span>
+                        <span id="cart-total">₹0.00</span>
+                    </div>
+                    <button id="checkout-button" class="w-full mt-4 bg-orange-500 text-white font-semibold py-3 rounded-lg hover:bg-orange-600 transition duration-300 disabled:bg-gray-400">
+                        Place Order
+                    </button>
+                </div>
+            </div>
+            <div id="cart-overlay" class="fixed top-0 left-0 w-full h-full bg-black opacity-50 z-40 hidden"></div>
+        </div>
+
+        <!-- Admin Dashboard -->
+        <div id="admin-dashboard" class="bg-gray-100 min-h-screen" style="display: none;">
+            <header class="bg-white shadow-md sticky top-0 z-30">
+                <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+                    <a href="#" class="text-2xl font-bold text-orange-500">Admin Dashboard</a>
+                    <div>
+                        <span class="text-gray-700 mr-4">Welcome, <span class="font-semibold">Admin</span>!</span>
+                        <button id="admin-logout-button" class="text-gray-600 hover:text-orange-500 transition duration-300">Logout</button>
+                    </div>
+                </nav>
+            </header>
+            <main class="container mx-auto p-6">
+                <!-- Menu Management -->
+                <section id="admin-menu-management" class="bg-white p-6 rounded-lg shadow-md mb-8">
+                    <h3 class="text-2xl font-bold mb-4">Manage Menu</h3>
+                    <form id="add-menu-item-form" class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end mb-6">
+                        <div class="md:col-span-1">
+                            <label for="item-name" class="block text-sm font-medium text-gray-700">Item Name</label>
+                            <input type="text" id="item-name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500" required>
+                        </div>
+                        <div class="md:col-span-1">
+                            <label for="item-price" class="block text-sm font-medium text-gray-700">Price (₹)</label>
+                            <input type="number" id="item-price" min="0" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500" required>
+                        </div>
+                        <div class="md:col-span-1">
+                            <label for="item-image" class="block text-sm font-medium text-gray-700">Image URL</label>
+                            <input type="text" id="item-image" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-orange-500 focus:ring-orange-500" placeholder="https://placehold.co/...">
+                        </div>
+                        <button type="submit" class="w-full md:w-auto bg-orange-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-orange-600 transition duration-300">Add Item</button>
+                    </form>
+                    <div id="admin-menu-list" class="space-y-2">
+                        <!-- Admin menu list will be injected here -->
+                    </div>
+                </section>
+
+                <!-- View Orders -->
+                <section id="admin-view-orders" class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-2xl font-bold mb-4">All Orders</h3>
+                    <div id="all-orders-list" class="space-y-4">
+                        <p>No orders have been placed yet.</p>
+                        <!-- All orders will be injected here -->
+                    </div>
+                </section>
+            </main>
+        </div>
+
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg opacity-0 transform translate-y-10 transition-all duration-300 z-50">
+        Item added to cart!
+    </div>
+
+    <!-- Receipt Modal -->
+    <div id="receipt-modal" class="modal pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center opacity-0 z-50">
+        <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
+        <div class="modal-content bg-white w-11/12 md:max-w-md mx-auto rounded-lg shadow-lg z-50 overflow-y-auto transform -translate-y-full">
+            <div class="p-6">
+                <div class="flex justify-between items-center pb-3 border-b">
+                    <p class="text-2xl font-bold text-orange-500">Order Receipt</p>
+                    <button id="close-receipt-modal" class="modal-close cursor-pointer z-50">
+                        <i class="fas fa-times text-2xl text-gray-500"></i>
+                    </button>
+                </div>
+                <div id="receipt-content" class="py-4">
+                    <!-- Receipt details will be injected here -->
+                </div>
+                <div class="flex justify-end pt-2">
+                    <button id="ok-receipt-button" class="px-4 bg-orange-500 p-3 rounded-lg text-white hover:bg-orange-600">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
